@@ -20,7 +20,7 @@ function Constraint({min, max}: {min: number, max: number}) {
     }
 }
 
-
+ 
 class User {
 
     @Constraint({
