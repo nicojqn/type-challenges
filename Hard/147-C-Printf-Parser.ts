@@ -46,14 +46,14 @@ type ControlsMap = {
 
   type ParsePrintFormat<S extends string> = S extends `${infer first}%${infer control}${infer rest}` ?
     control extends keyof ControlsMap ? rest extends `${infer Testfirst}%${infer Testcontrol}${infer Testrest}` ?
-    [TypeFromControl<control>, ParsePrintFormat<rest>[number]] : [TypeFromControl<control>] : 
-    rest extends `${infer Testfirst}%${infer Testcontrol}${infer Testrest}` ? [ParsePrintFormat<rest>[number]] : [] : []
+    [TypeFromControl<control>, ...ParsePrintFormat<rest>] : [TypeFromControl<control>] : 
+    rest extends `${infer Testfirst}%${infer Testcontrol}${infer Testrest}` ? [...ParsePrintFormat<rest>] : [] : []
 
   type A = ParsePrintFormat<'The result is %d. %s'>
 
   type B = ParsePrintFormat<'The result is %d.'>
 
-  type C = ParsePrintFormat<'The result is %%%d.'>
+  type C = ParsePrintFormat<'The result is %%%d.%s'>
   
   /* _____________ Test Cases _____________ */
   import type { Equal, Expect } from '@type-challenges/utils'
