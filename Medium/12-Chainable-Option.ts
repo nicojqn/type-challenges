@@ -46,13 +46,7 @@ type Option = [string, any]
 
 type returnChainable<Data extends any[], Key extends string, Value> = [...Data, [Key, Value]]
 
-type ObjToTuple<Obj extends {key: string}[]> = keyof Obj extends {key: infer Key} ? Key : never 
-
-type B = ObjToTuple<[{key: "a"}, {key: "b"}]>
-
 type notDefined<Data extends Option[], Key extends string> = [Key, any] extends Data[number] ? false : string
-
-type A = notDefined<[["name", "aa"], ["bar", "bb"]], "name">
 
 type Chainable<Data extends Option[] = []> = {
   option<Key extends string & notDefined<Data, Key>, Value>(key: Key, value: Value) : Chainable<returnChainable<Data, Key, Value>>
@@ -103,7 +97,7 @@ type Expected2 = {
 }
 
 type Expected3 = {
-  name: number
+  name: string
 }
 
 /* _____________ Further Steps _____________ */
